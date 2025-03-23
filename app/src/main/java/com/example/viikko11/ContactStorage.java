@@ -51,7 +51,22 @@ public class ContactStorage {
     }
 
     public void sortByGroup() {
-        contacts.sort(Comparator.comparing(Contact::getContactGroup, String::compareToIgnoreCase));
+        contacts.sort((c1, c2) -> {
+            if (c1.getContactGroup().equalsIgnoreCase("Työ") && !c2.getContactGroup().equalsIgnoreCase("Työ")) {
+                return -1;
+            } else if (!c1.getContactGroup().equalsIgnoreCase("Työ") && c2.getContactGroup().equalsIgnoreCase("Työ")) {
+                return 1;
+            } else if (c1.getContactGroup().equalsIgnoreCase("Henkilökohtainen") && !c2.getContactGroup().equalsIgnoreCase("Henkilökohtainen")) {
+                return 1;
+            } else if (!c1.getContactGroup().equalsIgnoreCase("Henkilökohtainen") && c2.getContactGroup().equalsIgnoreCase("Henkilökohtainen")) {
+                return -1;
+            } else {
+                return 0;
+            }
+        });
     }
 
 }
+
+
+
